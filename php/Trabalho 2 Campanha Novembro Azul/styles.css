@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    /* AQUI: coloca a imagem de fundo */
+    background-image: url("fundo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Deixa o texto legível em cima do fundo */
+    background-attachment: fixed;
+    color: #fff;
+}
+
+/* container da segunda página */
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+}
+
+/* títulos */
+h2, h3 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* texto de introdução */
+.intro {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* lista de dicas */
+.lista li {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/* caixinha de informação */
+.info-box {
+    margin-top: 25px;
+    padding: 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+/* links */
+.links li {
+    margin: 10px 0;
+}
+
+.links a {
+    color: #aee4ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.links a:hover {
+    text-decoration: underline;
+}
+
+/* botao voltar */
+.btn-voltar {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 18px;
+    background: #0066cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.btn-voltar:hover {
+    background: #004d99;
+}
+
+/* formulário (primeira página) */
+form {
+    max-width: 350px;
+    margin: 60px auto;
+    padding: 25px;
+    background: rgba(0,0,0,0.45);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    text-align: center;
+}
+
+input, button {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+button, input[type="submit"] {
+    cursor: pointer;
+    background: #0077cc;
+    color: white;
+    transition: .3s;
+}
+
+button:hover, input[type="submit"]:hover {
+    background: #005fa3;
+}
