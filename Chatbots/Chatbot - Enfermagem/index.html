@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatBox</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #111;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .chatbox {
+        background: #1c1c1c;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      }
+
+      h2 {
+        margin-bottom: 15px;
+        font-size: 26px;
+        color: #ff3b3b;
+      }
+
+      button {
+        padding: 12px 25px;
+        background: #ff3b3b;
+        border: none;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #ff5555;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chatbox">
+      <h2>Chatbot por voz</h2>
+      <button onclick="ouvir()">Falar Agora</button>
+    </div>
+
+    <script>
+      // FUNÇÃO FALAR
+      function falar(texto) {
+        const discurso = new SpeechSynthesisUtterance(texto);
+        discurso.lang = "pt-BR";
+        discurso.rate = 1;
+        window.speechSynthesis.speak(discurso);
+      }
+
+      // LISTA DE PERGUNTAS
+      const pergunta = [
+        "atualizações do calendário vacinal da criança",
+        "o que é método contraceptivo natural",
+        "o que é puerperio",
+        "cuidados de enfermagem ao recém nascido e puérpera",
+        "o que é a escala de apgar",
+      ];
+
+      // LISTA DE RESPOSTAS
+      const resposta = [
+        "As atualizações do calendário vacinal da criança envolvem mudanças nas idades, reforços e inclusão de novas vacinas conforme pesquisas e necessidades de saúde pública.",
+        "Método contraceptivo natural é quando a pessoa evita gravidez observando sinais do corpo, como período fértil, temperatura basal ou muco cervical. Não usa hormônios nem dispositivos.",
+        "Puerpério é o período após o parto em que o corpo da mulher volta ao estado normal. Geralmente dura seis semanas e envolve mudanças físicas e hormonais.",
+        "Os cuidados incluem: manter a temperatura do recém nascido, avaliar respiração, cuidar do coto umbilical, apoiar a amamentação, observar sinais de infecção e orientar a puérpera sobre higiene, dor e sangramento.",
+        "A escala de Apgar avalia o bebê no primeiro e no quinto minuto de vida analisando cinco itens: respiração, frequência cardíaca, cor, tônus muscular e resposta a estímulos. Serve para saber se ele precisa de ajuda imediata.",
+      ];
+
+      function ouvir() {
+        const reconhecer = new webkitSpeechRecognition();
+        reconhecer.lang = "pt-BR";
+        reconhecer.start();
+
+        reconhecer.onresult = function (event) {
+          const textoFalado = event.results[0][0].transcript.toLowerCase();
+
+          for (let i = 0; i < pergunta.length; i++) {
+            if (textoFalado.includes(pergunta[i])) {
+              falar(resposta[i]);
+              return;
+            }
+          }
+
+          falar("Desculpe, eu não entendi.");
+        };
+
+        reconhecer.onerror = function () {
+          falar("Opa, deu erro no reconhecimento de voz.");
+        };
+      }
+    </script>
+  </body>
+</html>

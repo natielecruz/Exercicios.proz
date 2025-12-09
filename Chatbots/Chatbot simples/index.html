@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBox</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chatbox {
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 26px;
+            color: #ff3b3b;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #ff3b3b;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #ff5555;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbox">
+        <h2>Chatbot por voz</h2>
+        <button onclick="ouvir()">Falar Agora</button>
+    </div>
+
+    <script>
+        const pergunta = "como você está?";
+
+        const resposta = "Estou ótimo! Obrigado por perguntar.";
+
+        function falar(texto) {
+            const discurso = new SpeechSynthesisUtterance(texto);
+            discurso.lang = "pt-BR";
+            discurso.rate = 1;
+            window.speechSynthesis.speak(discurso);
+        }
+
+        function ouvir() {
+            const reconhecer = new webkitSpeechRecognition();
+            reconhecer.lang = "pt-BR";
+            reconhecer.start();
+
+            reconhecer.onresult = function(event) {
+                const textoFala = event.results[0][0].transcript.toLowerCase();
+
+                if (textoFala.includes(pergunta)) {
+                    falar(resposta);
+                } else {
+                    falar("Desculpa, eu só entendo a pergunta: como você está?");
+                }
+            };
+
+            reconhecer.onerror = function() {
+                falar("Opa, deu erro no reconhecimento de voz.");
+            };
+        }
+    </script>
+</body>
+</html>
