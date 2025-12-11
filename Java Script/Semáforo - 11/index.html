@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Semáforo Inteligente</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #3a3d98, #6b9dfc);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(8px);
+        padding: 30px;
+        border-radius: 18px;
+        width: 350px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      label {
+        font-size: 15px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 12px;
+        background-color: #00ffb3;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background-color: #08d69a;
+      }
+
+      #resultado {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 12px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sistema Inteligente de Semáforo</h2>
+
+      <label>Quantidade de carros:</label>
+      <input type="number" id="carros" placeholder="Digite um número" />
+
+      <button onclick="calcular()">Calcular Tempo</button>
+
+      <div id="resultado"></div>
+    </div>
+
+    <script>
+      function calcular() {
+        const valor = document.getElementById("carros").value;
+
+        if (valor === "") {
+          document.getElementById("resultado").innerHTML =
+            "Por favor, digite um número.";
+          return;
+        }
+
+        const resposta = semaforos(Number(valor));
+        document.getElementById("resultado").innerHTML = resposta;
+      }
+
+      function semaforos(qtdCarros) {
+        if (qtdCarros > 20) {
+          return "Fluxo intenso → Luz verde por 40 segundos.";
+        } else if (qtdCarros > 10) {
+          return "Fluxo moderado → Luz verde por 25 segundos.";
+        } else {
+          return "Fluxo baixo → Luz verde por 15 segundos.";
+        }
+      }
+    </script>
+  </body>
+</html>
