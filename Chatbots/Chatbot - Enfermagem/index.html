@@ -3,105 +3,287 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChatBox</title>
+    <title>Chatbot Enfermagem</title>
 
     <style>
       body {
         margin: 0;
         padding: 0;
-        background: #111;
-        color: #fff;
-        font-family: Arial, sans-serif;
+        font-family: "Segoe UI", Arial, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
+
+        background-image: url("enfermagembg.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(227, 242, 253, 0.75);
+        z-index: 0;
       }
 
       .chatbox {
-        background: #1c1c1c;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        width: 420px;
+        min-height: 220px;
+        max-height: 620px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(13, 71, 161, 0.25);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(8px);
       }
 
-      h2 {
-        margin-bottom: 15px;
-        font-size: 26px;
-        color: #ff3b3b;
+      header {
+        background: linear-gradient(135deg, #1976d2, #2196f3);
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      header h2 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      header p {
+        margin: 5px 0 0;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .gif-enfermagem {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 80px;
+        height: 80px;
+        z-index: 10;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .gif-enfermagem img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .messages {
+        padding: 16px;
+        background: #f5f9ff;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow-y: auto;
+        flex-grow: 1;
+      }
+
+      .msg {
+        padding: 8px 12px;
+        border-radius: 12px;
+        max-width: 75%;
+        font-size: 14px;
+        line-height: 1.35;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .user {
+        background: #e3f2fd;
+        align-self: flex-end;
+      }
+
+      .bot {
+        background: #ffffff;
+        border-left: 4px solid #1976d2;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .status {
+        text-align: center;
+        font-size: 13px;
+        color: #1565c0;
+        margin-bottom: 6px;
+        display: none;
+      }
+
+      footer {
+        padding: 12px;
+        text-align: center;
+        background: #ffffff;
+        border-top: 1px solid #ddd;
       }
 
       button {
-        padding: 12px 25px;
-        background: #ff3b3b;
+        background: linear-gradient(135deg, #1976d2, #2196f3);
         border: none;
         color: white;
-        font-size: 18px;
-        border-radius: 10px;
+        font-size: 16px;
+        padding: 12px 24px;
+        border-radius: 30px;
         cursor: pointer;
-        transition: 0.2s;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: auto;
+        box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4);
+        transition: 0.3s;
       }
 
       button:hover {
-        background: #ff5555;
-        transform: scale(1.05);
+        transform: translateY(-2px);
+      }
+
+      button.active {
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.6);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(33, 150, 243, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+        }
       }
     </style>
   </head>
+
   <body>
     <div class="chatbox">
-      <h2>Chatbot por voz</h2>
-      <button onclick="ouvir()">Falar Agora</button>
+      <header>
+        <h2>Chatbot de Enfermagem</h2>
+        <p>Assistente virtual por voz</p>
+      </header>
+
+      <div class="gif-enfermagem">
+        <img src="enfermagem.gif" alt="Assistente de Enfermagem" />
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="status" id="status">🎤 Ouvindo...</div>
+
+      <footer>
+        <button id="btn" onclick="ouvir()">🎙️ Falar agora</button>
+      </footer>
     </div>
 
     <script>
-      // FUNÇÃO FALAR
+      const messages = document.getElementById("messages");
+
       function falar(texto) {
-        const discurso = new SpeechSynthesisUtterance(texto);
-        discurso.lang = "pt-BR";
-        discurso.rate = 1;
-        window.speechSynthesis.speak(discurso);
+        const speech = new SpeechSynthesisUtterance(texto);
+        speech.lang = "pt-BR";
+        speech.rate = 1;
+        window.speechSynthesis.speak(speech);
       }
 
-      // LISTA DE PERGUNTAS
-      const pergunta = [
-        "atualizações do calendário vacinal da criança",
-        "o que é método contraceptivo natural",
-        "o que seria",
+      const perguntas = [
+        "calendário vacinal",
+        "método contraceptivo natural",
+        "seria",
         "nascido",
-        "o que é a escala de apgar",
+        "escala de apgar",
       ];
 
-      // LISTA DE RESPOSTAS
-      const resposta = [
-        "As atualizações do calendário vacinal da criança envolvem mudanças nas idades, reforços e inclusão de novas vacinas conforme pesquisas e necessidades de saúde pública.",
-        "Método contraceptivo natural é quando a pessoa evita gravidez observando sinais do corpo, como período fértil, temperatura basal ou muco cervical. Não usa hormônios nem dispositivos.",
-        "Puerpério é o período após o parto em que o corpo da mulher volta ao estado normal. Geralmente dura seis semanas e envolve mudanças físicas e hormonais.",
-        "Os cuidados incluem: manter a temperatura do recém nascido, avaliar respiração, cuidar do coto umbilical, apoiar a amamentação, observar sinais de infecção e orientar a puérpera sobre higiene, dor e sangramento.",
-        "A escala de Apgar avalia o bebê no primeiro e no quinto minuto de vida analisando cinco itens: respiração, frequência cardíaca, cor, tônus muscular e resposta a estímulos. Serve para saber se ele precisa de ajuda imediata.",
+      const respostas = [
+        "As atualizações do calendário vacinal infantil podem incluir mudanças nas idades, reforços e inclusão de novas vacinas conforme o Ministério da Saúde.",
+        "O método contraceptivo natural baseia-se na observação do período fértil da mulher, sem uso de hormônios ou dispositivos.",
+        "O puerpério é o período após o parto em que o corpo da mulher retorna gradualmente às condições anteriores.",
+        "Os cuidados com o recém-nascido incluem controle térmico, respiração, coto umbilical e incentivo à amamentação.",
+        "A escala de Apgar avalia o recém-nascido no primeiro e quinto minuto de vida.",
       ];
+
+      function adicionarMensagem(texto, classe) {
+        const div = document.createElement("div");
+        div.className = `msg ${classe}`;
+        div.innerText = texto;
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      window.onload = () => {
+        adicionarMensagem(
+          "Olá! Posso te ajudar com dúvidas de enfermagem. Fale sua pergunta 🎤",
+          "bot"
+        );
+      };
 
       function ouvir() {
-        const reconhecer = new webkitSpeechRecognition();
-        reconhecer.lang = "pt-BR";
-        reconhecer.start();
+        const status = document.getElementById("status");
+        const btn = document.getElementById("btn");
 
-        reconhecer.onresult = function (event) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = "pt-BR";
+
+        status.style.display = "block";
+        btn.classList.add("active");
+
+        recognition.start();
+
+        recognition.onresult = function (event) {
           const textoFalado = event.results[0][0].transcript.toLowerCase();
+          adicionarMensagem(textoFalado, "user");
 
-          for (let i = 0; i < pergunta.length; i++) {
-            if (textoFalado.includes(pergunta[i])) {
-              falar(resposta[i]);
+          for (let i = 0; i < perguntas.length; i++) {
+            if (textoFalado.includes(perguntas[i])) {
+              adicionarMensagem(respostas[i], "bot");
+              falar(respostas[i]);
+              status.style.display = "none";
+              btn.classList.remove("active");
               return;
             }
           }
 
-          falar("Desculpe, eu não entendi.");
+          const erro =
+            "Desculpe, não entendi sua pergunta. Pode tentar de outra forma?";
+          adicionarMensagem(erro, "bot");
+          falar(erro);
+          status.style.display = "none";
+          btn.classList.remove("active");
         };
 
-        reconhecer.onerror = function () {
-          falar("Opa, deu erro no reconhecimento de voz.");
+        recognition.onerror = function () {
+          status.style.display = "none";
+          btn.classList.remove("active");
         };
       }
     </script>
