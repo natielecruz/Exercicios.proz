@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario ingressos</title>
+</head>
+
+<body>
+    <h1>Sorteio do show Justin Bieber</h1>
+    <p>complete o formulario e concorra a ingressos para o show do Justin no Rock in rio.</p>
+    <form>
+        <label>Nome:</label>
+        <input type="text" name="Nome" required><br><br>
+        <label>Sobrenome:</label>
+        <input type="text" name="Sobrenome" required><br><br>
+        <label>Data:</label>
+        <input type="date" name="data"><br><br>
+        <label>Email:</label>
+        <input type="text" name="email" required><br><br>
+        <label>Senha:</label>
+        <input type="password" name="senha" required><br><br>
+        <label>Gênero:</label>
+        <input type="radio" name="genero" value="feminino" required>Feminino
+        <input type="radio" name="genero" value="Masculino" required>Masculino<br><br>
+
+        <label>ingressos</label><br>
+        <select name="ingressos"required>
+            <option value="selecione"
+                <option>Setor Azul</option>
+                <option>Setor Amarelo</option>
+                <option>Setor Vermelho</option>
+                </select><br><br>
+
+                <!--botão-->
+                <button type="submit">Enviar</button>
+        </select>
+
+        </form>
+
+
+        <script>
+            function mostrarAlerta(event){
+                event.preventDefault();
+                alert("Dados cadastrados com sucesso!");
+            
+            }
+        </script>
