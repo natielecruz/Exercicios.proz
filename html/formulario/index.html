@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>formulario ingressos</title>
+    <title>Formulário Ingressos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h1>Sorteio do show Justin Bieber</h1>
-    <p>complete o formulario e concorra a ingressos para o show do Justin no Rock in rio.</p>
-    <form>
-        <label>Nome:</label>
-        <input type="text" name="Nome" required><br><br>
-        <label>Sobrenome:</label>
-        <input type="text" name="Sobrenome" required><br><br>
-        <label>Data:</label>
-        <input type="date" name="data"><br><br>
-        <label>Email:</label>
-        <input type="text" name="email" required><br><br>
-        <label>Senha:</label>
-        <input type="password" name="senha" required><br><br>
-        <label>Gênero:</label>
-        <input type="radio" name="genero" value="feminino" required>Feminino
-        <input type="radio" name="genero" value="Masculino" required>Masculino<br><br>
+    <div class="container">
+        <h1>Sorteio do show Justin Bieber</h1>
+        <p>Complete o formulário e concorra a ingressos para o show do Justin no Rock in Rio.</p>
+        
+        <form onsubmit="mostrarAlerta(event)">
+            <label>Nome:</label>
+            <input type="text" name="nome" required>
 
-        <label>ingressos</label><br>
-        <select name="ingressos"required>
-            <option value="selecione"
-                <option>Setor Azul</option>
-                <option>Setor Amarelo</option>
-                <option>Setor Vermelho</option>
-                </select><br><br>
+            <label>Sobrenome:</label>
+            <input type="text" name="sobrenome" required>
 
-                <!--botão-->
-                <button type="submit">Enviar</button>
-        </select>
+            <label>Data:</label>
+            <input type="date" name="data">
 
+            <label>Email:</label>
+            <input type="email" name="email" required>
+
+            <label>Senha:</label>
+            <input type="password" name="senha" required>
+
+            <label>Gênero:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="genero" value="feminino" required> Feminino</label>
+                <label><input type="radio" name="genero" value="masculino" required> Masculino</label>
+            </div>
+
+            <label>Ingressos:</label>
+            <select name="ingressos" required>
+                <option value="">Selecione</option>
+                <option value="azul">Setor Azul</option>
+                <option value="amarelo">Setor Amarelo</option>
+                <option value="vermelho">Setor Vermelho</option>
+            </select>
+
+            <button type="submit">Enviar</button>
         </form>
+    </div>
+</body>
 
-
-        <script>
-            function mostrarAlerta(event){
-                event.preventDefault();
-                alert("Dados cadastrados com sucesso!");
-            
-            }
-        </script>
+</html>
