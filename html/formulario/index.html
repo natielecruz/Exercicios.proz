@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="container">
+        <img src="img/image.png" alt="Justin Bieber" class="banner">
+
         <h1>Sorteio do show Justin Bieber</h1>
         <p>Complete o formulário e concorra a ingressos para o show do Justin no Rock in Rio.</p>
         
@@ -44,6 +46,12 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
-</body>
 
+    <script>
+        function mostrarAlerta(event) {
+            event.preventDefault();
+            alert("Formulário enviado com sucesso!");
+        }
+    </script>
+</body>
 </html>
