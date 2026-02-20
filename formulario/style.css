@@ -1,0 +1,87 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            color: #ccc;
+            margin-bottom: 25px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border: 2px solid #000;
+            background: #f5f5f5;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .radio-group {
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background: #000;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #fff;
+            color: #000;
+        }
